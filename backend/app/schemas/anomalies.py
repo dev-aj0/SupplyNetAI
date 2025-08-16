@@ -3,6 +3,11 @@ from typing import Optional, List
 from datetime import datetime
 
 
+class AnomalyDetectionRequest(BaseModel):
+    warehouse_id: str = Field(..., min_length=1, max_length=50)
+    sku_id: str = Field(..., min_length=1, max_length=100)
+
+
 class AnomalyDataCreate(BaseModel):
     timestamp: datetime
     warehouse_id: str = Field(..., min_length=1, max_length=50)

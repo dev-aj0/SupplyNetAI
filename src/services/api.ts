@@ -37,13 +37,13 @@ class APIService {
 
   // AI-Powered Forecasting
   async generateForecast(warehouseId: string, skuId: string, horizonDays: number = 7): Promise<any> {
-    const params = new URLSearchParams({
-      warehouse_id: warehouseId,
-      sku_id: skuId,
-      horizon_days: horizonDays.toString()
-    });
-    return this.request(`/forecasting/forecast?${params.toString()}`, {
-      method: 'POST'
+    return this.request('/forecasting/forecast', {
+      method: 'POST',
+      body: JSON.stringify({
+        warehouse_id: warehouseId,
+        sku_id: skuId,
+        horizon_days: horizonDays
+      })
     });
   }
 
@@ -60,12 +60,12 @@ class APIService {
 
   // AI-Powered Stock Optimization
   async getStockRecommendations(warehouseId: string, skuId: string): Promise<any> {
-    const params = new URLSearchParams({
-      warehouse_id: warehouseId,
-      sku_id: skuId
-    });
-    return this.request(`/optimization/stock/recommendations?${params.toString()}`, {
-      method: 'POST'
+    return this.request('/optimization/stock/recommendations', {
+      method: 'POST',
+      body: JSON.stringify({
+        warehouse_id: warehouseId,
+        sku_id: skuId
+      })
     });
   }
 

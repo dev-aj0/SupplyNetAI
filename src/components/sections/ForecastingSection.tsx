@@ -52,9 +52,9 @@ const ForecastingSection: React.FC<ForecastingSectionProps> = ({
       
       const response = await apiService.generateForecast(selectedWarehouse, selectedSku, forecastHorizon);
       
-      if (response?.data?.forecast) {
-        console.log('✅ Real AI forecast loaded:', response.data.forecast.length, 'days');
-        setLocalForecastData(response.data.forecast);
+      if (response?.forecast_data) {
+        console.log('✅ Real AI forecast loaded:', response.forecast_data.length, 'days');
+        setLocalForecastData(response.forecast_data);
       } else {
         console.log('⚠️ No forecast data in response, using fallback');
         setLocalForecastData(forecastData);

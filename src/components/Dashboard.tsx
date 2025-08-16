@@ -234,6 +234,26 @@ const Dashboard: React.FC = () => {
     return csvRows.join('\n');
   };
 
+  const trainModels = async () => {
+    try {
+      console.log('🤖 Training LSTM models with uploaded data...');
+      
+      // Train forecasting models
+      await apiService.trainForecastingModel(selectedWarehouse, selectedSku);
+      
+      // Train anomaly detection models
+      await apiService.trainAnomalyDetector(selectedWarehouse, selectedSku);
+      
+      console.log('✅ Models trained successfully!');
+      
+      // Reload forecasts with real data
+      await loadRealForecast();
+      
+    } catch (error) {
+      console.error('❌ Failed to train models:', error);
+    }
+  };
+
   // Calculate dashboard metrics with safe array operations
   const urgentStockItems = Array.isArray(stockRecommendations) ? 
     stockRecommendations.filter(item => item.status === 'urgent').length : 0;

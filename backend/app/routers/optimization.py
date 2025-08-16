@@ -4,7 +4,7 @@ from typing import List, Dict, Optional
 import logging
 from app.services.optimization_service import StockOptimizationService
 from app.services.forecasting_service import ForecastingService
-from app.schemas.inventory import StockRecommendation
+from app.schemas.inventory import StockRecommendation, StockRecommendationRequest
 from app.core.database import get_db
 from sqlalchemy.orm import Session
 from app.services.ai_integration_service import AIIntegrationService
@@ -22,11 +22,11 @@ ai_service = AIIntegrationService()
 
 
 @router.post("/stock/recommendations")
-async def get_stock_recommendations(warehouse_id: str, sku_id: str):
+async def get_stock_recommendations(request: StockRecommendationRequest):
     """Get AI-powered stock recommendations using REAL ML"""
     try:
-        logger.info(f"Getting REAL ML stock recommendations for {warehouse_id}-{sku_id}")
-        return ai_service.generate_real_stock_recommendations(warehouse_id, sku_id)
+        logger.info(f"Getting REAL ML stock recommendations for {request.warehouse_id}-{request.sku_id}")
+        return ai_service.generate_real_stock_recommendations(request.warehouse_id, request.sku_id)
     except Exception as e:
         logger.error(f"Error generating stock recommendations: {e}")
         raise HTTPException(status_code=500, detail=f"Stock optimization failed: {str(e)}")

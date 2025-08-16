@@ -3,6 +3,11 @@ from typing import Optional, List
 from datetime import datetime
 
 
+class StockRecommendationRequest(BaseModel):
+    warehouse_id: str = Field(..., min_length=1, max_length=50)
+    sku_id: str = Field(..., min_length=1, max_length=100)
+
+
 class InventoryDataCreate(BaseModel):
     warehouse_id: str = Field(..., min_length=1, max_length=50)
     sku_id: str = Field(..., min_length=1, max_length=100)

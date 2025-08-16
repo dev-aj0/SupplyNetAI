@@ -313,7 +313,7 @@ class LSTMForecastingService:
             }
     
     def _get_recent_data(self, warehouse_id: str, sku_id: str) -> List[Dict]:
-        """Get recent sales data for prediction from data files"""
+        """Get recent sales data for prediction from uploaded data files"""
         try:
             # Try to load from data directory
             current_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))

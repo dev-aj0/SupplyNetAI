@@ -107,3 +107,6 @@ if __name__ == "__main__":
         reload=True,
         log_level="info"
     )
+from app.routers import dashboard, forecasting, optimization, routing, anomalies, data_ingestion
+
+app.include_router(data_ingestion.router)

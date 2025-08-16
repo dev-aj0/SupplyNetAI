@@ -2,16 +2,17 @@ from fastapi import APIRouter, HTTPException
 from typing import Optional
 import logging
 from app.services.ai_integration_service import ai_service
+from app.schemas.anomalies import AnomalyDetectionRequest
 
 logger = logging.getLogger(__name__)
 router = APIRouter()
 
 @router.post("/detect")
-async def detect_anomalies(warehouse_id: str, sku_id: str):
+async def detect_anomalies(request: AnomalyDetectionRequest):
     """Detect anomalies using REAL ML LSTM autoencoders"""
     try:
-        logger.info(f"Detecting anomalies with REAL ML for {warehouse_id}-{sku_id}")
-        return ai_service.detect_real_anomalies(warehouse_id, sku_id)
+        logger.info(f"Detecting anomalies with REAL ML for {request.warehouse_id}-{request.sku_id}")
+        return ai_service.detect_real_anomalies(request.warehouse_id, request.sku_id)
     except Exception as e:
         logger.error(f"Error detecting anomalies: {e}")
         raise HTTPException(status_code=500, detail=f"Anomaly detection failed: {str(e)}")

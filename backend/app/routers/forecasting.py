@@ -2,16 +2,17 @@ from fastapi import APIRouter, HTTPException
 from typing import List
 import logging
 from app.services.ai_integration_service import ai_service
+from app.schemas.forecasts import ForecastRequest
 
 logger = logging.getLogger(__name__)
 router = APIRouter()
 
 @router.post("/forecast")
-async def generate_forecast(warehouse_id: str, sku_id: str, horizon_days: int = 7):
+async def generate_forecast(request: ForecastRequest):
     """Generate AI-powered demand forecast"""
     try:
-        logger.info(f"Generating forecast for {warehouse_id}-{sku_id}, horizon: {horizon_days}")
-        return ai_service.generate_real_forecast(warehouse_id, sku_id, horizon_days)
+        logger.info(f"Generating forecast for {request.warehouse_id}-{request.sku_id}, horizon: {request.horizon_days}")
+        return ai_service.generate_real_forecast(request.warehouse_id, request.sku_id, request.horizon_days)
     except Exception as e:
         logger.error(f"Error generating forecast: {e}")
         raise HTTPException(status_code=500, detail=f"Forecast generation failed: {str(e)}")

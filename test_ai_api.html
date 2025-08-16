@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI API Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .test-section { margin: 20px 0; padding: 20px; border: 1px solid #ccc; border-radius: 5px; }
+        .success { background-color: #d4edda; border-color: #c3e6cb; }
+        .error { background-color: #f8d7da; border-color: #f5c6cb; }
+        button { padding: 10px 20px; margin: 5px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background-color: #0056b3; }
+        pre { background-color: #f8f9fa; padding: 10px; border-radius: 5px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <h1>🤖 SupplyNet AI API Test</h1>
+    
+    <div class="test-section">
+        <h2>1. Test AI Status</h2>
+        <button onclick="testAIStatus()">Test AI Status</button>
+        <div id="ai-status-result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>2. Test AI Forecasting</h2>
+        <button onclick="testForecasting()">Test AI Forecasting</button>
+        <div id="forecast-result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>3. Test AI Anomaly Detection</h2>
+        <button onclick="testAnomalyDetection()">Test Anomaly Detection</button>
+        <div id="anomaly-result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>4. Test AI Stock Optimization</h2>
+        <button onclick="testStockOptimization()">Test Stock Optimization</button>
+        <div id="stock-result"></div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:8000';
+
+        async function makeRequest(endpoint, options = {}) {
+            try {
+                const response = await fetch(`${API_BASE}${endpoint}`, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        ...options.headers
+                    },
+                    ...options
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                return await response.json();
+            } catch (error) {
+                throw error;
+            }
+        }
+
+        async function testAIStatus() {
+            const resultDiv = document.getElementById('ai-status-result');
+            resultDiv.innerHTML = '<p>Testing...</p>';
+            
+            try {
+                const response = await fetch(`${API_BASE}/ai-status`);
+                const data = await response.json();
+                
+                resultDiv.innerHTML = `
+                    <div class="success">
+                        <h3>✅ AI Status Test Passed</h3>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    </div>
+                `;
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="error">
+                        <h3>❌ AI Status Test Failed</h3>
+                        <p>Error: ${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+
+        async function testForecasting() {
+            const resultDiv = document.getElementById('forecast-result');
+            resultDiv.innerHTML = '<p>Testing...</p>';
+            
+            try {
+                const data = await makeRequest('/api/v1/forecasting/forecast', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        warehouse_id: 'WH001',
+                        sku_id: 'SKU001',
+                        horizon_days: 7
+                    })
+                });
+                
+                resultDiv.innerHTML = `
+                    <div class="success">
+                        <h3>✅ AI Forecasting Test Passed</h3>
+                        <p>Generated ${data.forecast_data?.length || 0} days of forecasts</p>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    </div>
+                `;
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="error">
+                        <h3>❌ AI Forecasting Test Failed</h3>
+                        <p>Error: ${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+
+        async function testAnomalyDetection() {
+            const resultDiv = document.getElementById('anomaly-result');
+            resultDiv.innerHTML = '<p>Testing...</p>';
+            
+            try {
+                const data = await makeRequest('/api/v1/anomalies/detect', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        warehouse_id: 'WH001',
+                        sku_id: 'SKU001'
+                    })
+                });
+                
+                resultDiv.innerHTML = `
+                    <div class="success">
+                        <h3>✅ AI Anomaly Detection Test Passed</h3>
+                        <p>Detected ${data.total_anomalies || 0} anomalies</p>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    </div>
+                `;
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="error">
+                        <h3>❌ AI Anomaly Detection Test Failed</h3>
+                        <p>Error: ${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+
+        async function testStockOptimization() {
+            const resultDiv = document.getElementById('stock-result');
+            resultDiv.innerHTML = '<p>Testing...</p>';
+            
+            try {
+                const data = await makeRequest('/api/v1/optimization/stock/recommendations', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        warehouse_id: 'WH001',
+                        sku_id: 'SKU001'
+                    })
+                });
+                
+                resultDiv.innerHTML = `
+                    <div class="success">
+                        <h3>✅ AI Stock Optimization Test Passed</h3>
+                        <p>Stock Status: ${data.status || 'unknown'}</p>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    </div>
+                `;
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="error">
+                        <h3>❌ AI Stock Optimization Test Failed</h3>
+                        <p>Error: ${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+    </script>
+</body>
+</html> 

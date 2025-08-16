@@ -15,6 +15,12 @@ export interface ForecastData {
   confidence_lower: number;
   confidence_upper: number;
   actual?: number;
+  model_confidence?: number;
+  pattern_factors?: {
+    seasonal: number;
+    weekly: number;
+    trend: number;
+  };
 }
 
 export interface StockRecommendation {
