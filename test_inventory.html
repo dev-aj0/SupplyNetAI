@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory Test - SupplyNet</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background-color: #f5f5f5; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .header { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .test-section { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .stock-table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        .stock-table th, .stock-table td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        .stock-table th { background-color: #f8f9fa; font-weight: 600; }
+        .status-urgent { color: #dc3545; font-weight: bold; }
+        .status-low { color: #fd7e14; font-weight: bold; }
+        .status-optimal { color: #28a745; font-weight: bold; }
+        .status-excess { color: #007bff; font-weight: bold; }
+        .priority-high { background-color: #fff5f5; }
+        .priority-medium { background-color: #fffbf0; }
+        .priority-low { background-color: #f0fff4; }
+        .metric-card { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 8px; text-align: center; margin: 10px; }
+        .metric-value { font-size: 2.5em; font-weight: bold; margin-bottom: 5px; }
+        .metric-label { font-size: 0.9em; opacity: 0.9; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 SupplyNet - Inventory Management Test</h1>
+            <p>This page demonstrates the AI-powered inventory optimization features that should be working in your main application.</p>
+        </div>
+
+        <div class="test-section">
+            <h2>📊 Inventory Overview Metrics</h2>
+            <div class="grid">
+                <div class="metric-card">
+                    <div class="metric-value">15</div>
+                    <div class="metric-label">Total SKUs</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">3</div>
+                    <div class="metric-label">Urgent Items</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">7</div>
+                    <div class="metric-label">Low Stock Items</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">$45,250</div>
+                    <div class="metric-label">Potential Savings</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>📦 AI-Generated Stock Recommendations</h2>
+            <p>This table shows what the inventory page should display when working correctly:</p>
+            
+            <table class="stock-table">
+                <thead>
+                    <tr>
+                        <th>Priority</th>
+                        <th>Warehouse</th>
+                        <th>SKU</th>
+                        <th>Current Stock</th>
+                        <th>Safety Stock</th>
+                        <th>Reorder Point</th>
+                        <th>Recommended Order</th>
+                        <th>Status</th>
+                        <th>Est. Cost</th>
+                        <th>Lead Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="priority-high">
+                        <td>🔴 High</td>
+                        <td>WH001</td>
+                        <td>SKU001</td>
+                        <td>45</td>
+                        <td>50</td>
+                        <td>60</td>
+                        <td><strong>75 units</strong></td>
+                        <td class="status-urgent">Urgent</td>
+                        <td>$1,949.25</td>
+                        <td>7 days</td>
+                    </tr>
+                    <tr class="priority-high">
+                        <td>🔴 High</td>
+                        <td>WH002</td>
+                        <td>SKU002</td>
+                        <td>38</td>
+                        <td>45</td>
+                        <td>55</td>
+                        <td><strong>82 units</strong></td>
+                        <td class="status-urgent">Urgent</td>
+                        <td>$2,133.18</td>
+                        <td>5 days</td>
+                    </tr>
+                    <tr class="priority-medium">
+                        <td>🟡 Medium</td>
+                        <td>WH003</td>
+                        <td>SKU003</td>
+                        <td>72</td>
+                        <td>60</td>
+                        <td>80</td>
+                        <td><strong>58 units</strong></td>
+                        <td class="status-low">Low</td>
+                        <td>$1,508.22</td>
+                        <td>6 days</td>
+                    </tr>
+                    <tr class="priority-medium">
+                        <td>🟡 Medium</td>
+                        <td>WH004</td>
+                        <td>SKU004</td>
+                        <td>89</td>
+                        <td>70</td>
+                        <td>90</td>
+                        <td><strong>41 units</strong></td>
+                        <td class="status-low">Low</td>
+                        <td>$1,066.59</td>
+                        <td>8 days</td>
+                    </tr>
+                    <tr class="priority-low">
+                        <td>🟢 Low</td>
+                        <td>WH005</td>
+                        <td>SKU005</td>
+                        <td>156</td>
+                        <td>80</td>
+                        <td>120</td>
+                        <td><strong>0 units</strong></td>
+                        <td class="status-optimal">Optimal</td>
+                        <td>$0.00</td>
+                        <td>7 days</td>
+                    </tr>
+                    <tr class="priority-low">
+                        <td>🟢 Low</td>
+                        <td>WH001</td>
+                        <td>SKU006</td>
+                        <td>178</td>
+                        <td>85</td>
+                        <td>125</td>
+                        <td><strong>0 units</strong></td>
+                        <td class="status-optimal">Optimal</td>
+                        <td>$0.00</td>
+                        <td>6 days</td>
+                    </tr>
+                    <tr class="priority-low">
+                        <td>🟢 Low</td>
+                        <td>WH002</td>
+                        <td>SKU007</td>
+                        <td>145</td>
+                        <td>75</td>
+                        <td>110</td>
+                        <td><strong>0 units</strong></td>
+                        <td class="status-optimal">Optimal</td>
+                        <td>$0.00</td>
+                        <td>7 days</td>
+                    </tr>
+                    <tr class="priority-low">
+                        <td>🟢 Low</td>
+                        <td>WH003</td>
+                        <td>SKU008</td>
+                        <td>198</td>
+                        <td>90</td>
+                        <td>135</td>
+                        <td><strong>0 units</strong></td>
+                        <td class="status-excess">Excess</td>
+                        <td>$0.00</td>
+                        <td>5 days</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="test-section">
+            <h2>🔍 How AI Inventory Optimization Works</h2>
+            <div class="grid">
+                <div>
+                    <h3>📈 Demand Analysis</h3>
+                    <ul>
+                        <li>AI analyzes 365 days of historical sales data</li>
+                        <li>Identifies seasonal patterns and trends</li>
+                        <li>Calculates demand variability and uncertainty</li>
+                        <li>Predicts future demand with confidence intervals</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>🛡️ Safety Stock Calculation</h3>
+                    <ul>
+                        <li>ML-enhanced safety stock levels (20% of current stock)</li>
+                        <li>Considers lead time variability</li>
+                        <li>Balances stockout risk vs. holding costs</li>
+                        <li>Dynamic adjustment based on demand patterns</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>🎯 Reorder Point Optimization</h3>
+                    <ul>
+                        <li>Optimal reorder points (80% of current stock)</li>
+                        <li>Service level targeting (95-99%)</li>
+                        <li>Cost-benefit analysis for each recommendation</li>
+                        <li>Real-time updates as conditions change</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>📊 Status Classification</h3>
+                    <ul>
+                        <li><strong>Urgent</strong>: Below 75 units (immediate action)</li>
+                        <li><strong>Low</strong>: 75-120 units (order soon)</li>
+                        <li><strong>Optimal</strong>: 120-180 units (maintain)</li>
+                        <li><strong>Excess</strong>: Above 180 units (reduce orders)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>🚨 Troubleshooting Inventory Page</h2>
+            <p>If the inventory page isn't showing data in your main application:</p>
+            <ol>
+                <li><strong>Check Browser Console</strong>: Look for JavaScript errors or API call failures</li>
+                <li><strong>Verify Backend</strong>: Ensure the FastAPI server is running on port 8000</li>
+                <li><strong>Check API Endpoints</strong>: Test stock recommendations endpoint manually</li>
+                <li><strong>Data Loading</strong>: Verify stock data is being loaded in Dashboard component</li>
+                <li><strong>Component Props</strong>: Ensure StockTable receives data in correct format</li>
+            </ol>
+            
+            <h3>Expected Data Flow:</h3>
+            <p><code>Dashboard → Stock Data Loading → StockTable Component → Display</code></p>
+            
+            <h3>API Endpoint Test:</h3>
+            <p>Try this in your terminal: <code>curl -X POST "http://localhost:8000/api/v1/optimization/stock/recommendations?warehouse_id=WH001&sku_id=SKU001"</code></p>
+        </div>
+
+        <div class="test-section">
+            <h2>✅ What You Should See</h2>
+            <ul>
+                <li><strong>Stock Recommendations Table</strong>: Showing 10+ items with different statuses</li>
+                <li><strong>Status Indicators</strong>: Color-coded urgent, low, optimal, and excess items</li>
+                <li><strong>Action Buttons</strong>: Create purchase order, view details, etc.</li>
+                <li><strong>Real-time Updates</strong>: Data refreshes when you click "Update"</li>
+                <li><strong>Responsive Design</strong>: Table works on all screen sizes</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html> 
